@@ -65,12 +65,13 @@ def edit(type):
             
         #vertex groups
         bpy.ops.object.editmode_toggle()
+        bpy.ops.mesh.select_mode(use_extend=False, use_expand=False, type='FACE')
+        
         groupA=active.vertex_groups.new()
         bpy.ops.object.vertex_group_assign()
         
         groupB=active.vertex_groups.new()
         bpy.ops.mesh.select_all(action='INVERT')
-        bpy.ops.mesh.select_more()
         bpy.ops.object.vertex_group_assign()
         
         bpy.ops.mesh.split()
@@ -80,6 +81,7 @@ def edit(type):
         bpy.data.objects[active.name].vertex_groups.active=groupA
         bpy.ops.object.vertex_group_remove_from( use_all_groups = False , use_all_verts = False )
         
+        bpy.ops.mesh.select_mode(use_extend=False, use_expand=False, type='VERT')
         
         
         bpy.ops.mesh.select_all(action='DESELECT')
