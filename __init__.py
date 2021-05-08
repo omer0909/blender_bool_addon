@@ -145,7 +145,7 @@ def edit(type):
         bpy.ops.object.editmode_toggle()
         bpy.data.objects[active.name].vertex_groups.active=groupD
         bpy.ops.object.vertex_group_select()
-        bpy.ops.mesh.remove_doubles()
+        bpy.ops.mesh.remove_doubles(use_sharp_edge_from_normals=True)
         bpy.ops.mesh.select_all(action='DESELECT')
         bpy.ops.object.editmode_toggle()
         
