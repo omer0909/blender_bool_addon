@@ -175,28 +175,21 @@ def edit(type):
 
 selects=[]
 def mainBool(type):
+    fixError()
     area=bpy.context.area.ui_type
     bpy.context.area.ui_type = 'VIEW_3D'
-    smooth=True
     for object in bpy.context.selected_objects:
-        if not object.data.use_auto_smooth:
-            smooth=False
         if not object==bpy.context.active_object:
             selects.append(object)
     bpy.context.area.ui_type = area
     
-    if smooth:
-        
-        if 0 < len(selects):
-            if type=="OP1":
-                edit(0)
-            elif type=="OP2":
-                edit(1)
-            elif type=="OP3":
-                edit(2)
-                
-    else:
-        raise Exception("Enable 'Auto Smooth' in Objects Data Properties")
+    if 0 < len(selects):
+        if type=="OP1":
+            edit(0)
+        elif type=="OP2":
+            edit(1)
+        elif type=="OP3":
+            edit(2)
 
 
 
@@ -230,15 +223,11 @@ class BoolNormal(bpy.types.Operator):
         items=[
             ("OP1","Difference",""),
             ("OP2","Union",""),
-            ("OP3","Intersect",""),
-            ("OP4","Fix Normals","")
+            ("OP3","Intersect","")
         ]
     )
     def execute(self,context):
-        if self.preset_enum=="OP4":
-            fixError()
-        else:
-            mainBool(self.preset_enum)
+        mainBool(self.preset_enum)
         return {"FINISHED"}
     
     def invoke(self,context,event):
